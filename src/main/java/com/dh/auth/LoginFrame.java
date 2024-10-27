@@ -1,10 +1,26 @@
 package com.dh.auth;
+// RoundedButton
 import com.dh.components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
+// connect()
+import com.dh.app.DatabaseHelper; 
+// Change these to be more specific
 import javax.swing.*;
 import java.awt.*;
+//JBCrypt for password hashing/salting
+import org.mindrot.jbcrypt.BCrypt;
+// Fine
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginFrame extends JFrame {
+    // private JFrame frame;  // Store the frame reference
+    private JTextField emailField;
+    private JPasswordField passwordField;
 
     public LoginFrame() {
         initComponents();
@@ -13,6 +29,7 @@ public class LoginFrame extends JFrame {
     // rgb(69, 150, 209)
     private void initComponents() {
         // Basics
+        // frame = this; 
         setTitle("LMS - Login");
         setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,12 +43,12 @@ public class LoginFrame extends JFrame {
         titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE); // White text
 
-        JTextField emailField = new JTextField(15);
+        emailField = new JTextField(15);
         emailField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         emailField.setText("Email");
         emailField.setForeground(Color.GRAY);
 
-        JPasswordField passwordField = new JPasswordField(15);
+        passwordField = new JPasswordField(15);
         passwordField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         passwordField.setText("Password");
         passwordField.setForeground(Color.GRAY);
@@ -44,6 +61,14 @@ public class LoginFrame extends JFrame {
         RoundedButton loginButton = new RoundedButton("LOGIN");
         loginButton.setBackground(Color.WHITE); // White background
         loginButton.setForeground(new Color(34, 153, 84)); // Green text
+
+        //Action for LOGIN button
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleLogin();
+            }
+        });
 
         // Layout constraints for left panel
         GridBagConstraints gbc = new GridBagConstraints();
@@ -100,6 +125,111 @@ public class LoginFrame extends JFrame {
         // Add panels to frame
         add(leftPanel);
         add(rightPanel);
+    }
+
+    //LOGIN Method
+    // private void handleLogin() {
+    //     String username = emailField.getText();
+    //     String password = passwordField.getText();
+    
+    //     if (username.isEmpty()) {
+    //         JOptionPane.showMessageDialog(null, "Please enter username");
+    //     } else if (password.isEmpty()) {
+    //         JOptionPane.showMessageDialog(null, "Please enter password");
+    //     } else {
+    //         Connection connection = DatabaseHelper.connect();
+    //         if (connection == null) {
+    //             JOptionPane.showMessageDialog(null, "Database connection failed.");
+    //             return;
+    //         }
+    
+    //         try {
+    //             // Use TYPE_SCROLL_INSENSITIVE to allow cursor movement in both directions.
+    //             // ResultSet objects created by default are TYPE_FORWARD_ONLY, which means they can only move forward. 
+    //             // CANNOT use rs.beforeFirst().
+    //             Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    //             String st = "SELECT * FROM USERS WHERE USERNAME='" + username + "' AND PASSWORD='" + password + "'";
+    //             ResultSet rs = stmt.executeQuery(st);
+    
+    //             if (!rs.next()) {
+    //                 JOptionPane.showMessageDialog(null, "Invalid Username/Password!");
+    //             } else {
+    //                 dispose();
+    //                 rs.beforeFirst();  // Now this will work.
+    
+    //                 while (rs.next()) {
+    //                     String admin = rs.getString("USER_TYPE");
+    //                     String UID = rs.getString("UID");
+    
+    //                     if (admin.equals("1")) {
+    //                         librarian_frame();
+    //                     } else {
+    //                         user_frame(UID);
+    //                     }
+    //                 }
+    //             }
+    //         } catch (Exception ex) {
+    //             ex.printStackTrace();
+    //         }
+    //     }
+    // }
+
+    private void handleLogin() {
+    String username = emailField.getText().trim();
+        String password = new String(passwordField.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else  if  (verifyPassword(username, password)) {
+            // Perform login logic here
+            JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            //Move to the manageAccount pane
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+                        
+    }
+    
+
+    
+    // Placeholder methods for librarian and user frames
+    private void librarian_frame() {
+        JOptionPane.showMessageDialog(this, "Welcome, Librarian!");
+    }
+
+    private void user_frame(String UID) {
+        JOptionPane.showMessageDialog(this, "Welcome, User: " + UID);
+    }
+
+private static boolean verifyPassword(String username, String password) {
+        try {
+            // Create a JDBC connection
+            Connection connection = DatabaseHelper.connect();
+    
+            // Retrieve the hashed password from the database
+            String query = "SELECT PASSWORD FROM users WHERE USERNAME = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+    
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            if (resultSet.next()) {
+                String hashedPassword = resultSet.getString("PASSWORD");
+                // Verify the hashed password using BCrypt's checkpw method
+                return BCrypt.checkpw(password, hashedPassword);
+            }
+    
+            // Close the resources
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return false;
     }
 
     public static void main(String[] args) {

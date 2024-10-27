@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+
 public class DatabaseHelper {
     private static final String CONFIG_FILE = "src/main/resources/dbconfig.properties";
 
@@ -19,7 +20,13 @@ public class DatabaseHelper {
 
     private static void loadDatabaseConfig() {
         Properties props = new Properties();
-        try (FileInputStream input = new FileInputStream(CONFIG_FILE)) {
+        try (var input = DatabaseHelper.class.getClassLoader()
+                     .getResourceAsStream("dbconfig.properties")) {
+    
+            if (input == null) {
+                System.err.println("Sorry, unable to find dbconfig.properties");
+                return;
+            }
             props.load(input);
             url = props.getProperty("db.url");
             user = props.getProperty("db.user");
@@ -38,4 +45,5 @@ public class DatabaseHelper {
         }
         return connection;
     }
+    
 }
