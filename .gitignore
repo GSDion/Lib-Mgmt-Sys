@@ -1,2 +1,5 @@
-# Ignore this for now
-/src/main/java/Main.java
+# Ignore ALL folders/files inside of target folder
+target/
+
+# Ignore dbconfig
+/src/main/resources/dbconfig.properties
