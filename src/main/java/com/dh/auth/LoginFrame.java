@@ -19,8 +19,8 @@ import java.awt.event.ActionEvent;
 
 public class LoginFrame extends JFrame {
     // private JFrame frame;  // Store the frame reference
-    private JTextField emailField;
-    private JPasswordField passwordField;
+    private JTextField loginUsernameFld;
+    private JPasswordField loginPasswordFld;
 
     public LoginFrame() {
         initComponents();
@@ -43,15 +43,15 @@ public class LoginFrame extends JFrame {
         titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE); // White text
 
-        emailField = new JTextField(15);
-        emailField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        emailField.setText("Email");
-        emailField.setForeground(Color.GRAY);
+        loginUsernameFld = new JTextField(15);
+        loginUsernameFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        loginUsernameFld.setText("Email");
+        loginUsernameFld.setForeground(Color.GRAY);
 
-        passwordField = new JPasswordField(15);
-        passwordField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        passwordField.setText("Password");
-        passwordField.setForeground(Color.GRAY);
+        loginPasswordFld = new JPasswordField(15);
+        loginPasswordFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        loginPasswordFld.setText("Password");
+        loginPasswordFld.setForeground(Color.GRAY);
 
         JLabel forgotPassword = new JLabel("<HTML><U>Forgot your password?</U></HTML>");
         forgotPassword.setForeground(Color.WHITE);
@@ -79,10 +79,10 @@ public class LoginFrame extends JFrame {
         leftPanel.add(titleLabel, gbc);
 
         gbc.gridy = 1;
-        leftPanel.add(emailField, gbc);
+        leftPanel.add(loginUsernameFld, gbc);
 
         gbc.gridy = 2;
-        leftPanel.add(passwordField, gbc);
+        leftPanel.add(loginPasswordFld, gbc);
 
         gbc.gridy = 3;
         leftPanel.add(forgotPassword, gbc);
@@ -129,8 +129,8 @@ public class LoginFrame extends JFrame {
 
     //LOGIN Method
     // private void handleLogin() {
-    //     String username = emailField.getText();
-    //     String password = passwordField.getText();
+    //     String username = loginUsernameFld.getText();
+    //     String password = loginPasswordFld.getText();
     
     //     if (username.isEmpty()) {
     //         JOptionPane.showMessageDialog(null, "Please enter username");
@@ -175,8 +175,8 @@ public class LoginFrame extends JFrame {
     // }
 
     private void handleLogin() {
-    String username = emailField.getText().trim();
-        String password = new String(passwordField.getPassword());
+    String username = loginUsernameFld.getText().trim();
+        String password = new String(loginPasswordFld.getPassword());
 
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
