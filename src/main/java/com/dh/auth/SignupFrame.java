@@ -1,85 +1,137 @@
 package com.dh.auth;
+// Panels
+import javax.swing.*;
+import java.awt.*;
+// RoundedButton
+import com.dh.components.RoundedButton;
+// Buttons
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+// Login
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+public class SignupFrame extends JFrame {
+    private JTextField signupUsernameFld;
+    private JPasswordField signupPasswordFld;
+    private JPasswordField signupConpasswordFld;
 
-import org.mindrot.jbcrypt.BCrypt;
-import com.dh.app.DatabaseHelper;
-
-public class SignupFrame {
-
-     private static String hashPassword(String password) {
-        int workload = 12; // security requirements? 
-        String salt = BCrypt.gensalt(workload);
-        return BCrypt.hashpw(password, salt);
+    // Constructor
+    public SignupFrame() {
+        initComponents();
     }
 
-    private static boolean storeUserInDatabase(String username, String password, int userType) {
-        boolean isSuccess = false;
-        try {
-            // Create a JDBC connection
-            Connection connection =DatabaseHelper.connect();
-    
-            // Hash the password using bcrypt
-            String hashedPassword = hashPassword(password);
-    
-            // Create a prepared statement to insert the user into the table
-            String query = "INSERT INTO users (USERNAME, PASSWORD, USER_TYPE) VALUES (?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, hashedPassword);
-            preparedStatement.setInt(3, userType);
+     // rgb(69, 150, 209)
+     private void initComponents() {
+        // Basics
+        // frame = this; 
+        setTitle("LMS - Signup");
+        setSize(800, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    
-            // Execute the query
-            long rowsAffected = preparedStatement.executeUpdate();
-    
-            // If the query successfully inserted a row, the user was stored in the database
-            if (rowsAffected > 0) {
-                isSuccess = true;
+        // Panel
+        JPanel signupPanel = new JPanel(new GridBagLayout());
+        signupPanel.setBackground(new Color(69, 150, 209)); // Blue background
+
+        JLabel titleLabel = new JLabel("Login");
+        titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE); // White text
+
+        signupUsernameFld = new JTextField(15);
+        signupUsernameFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        signupUsernameFld.setText("Username");
+        signupUsernameFld.setForeground(Color.GRAY);
+
+        signupPasswordFld = new JPasswordField(15);
+        signupPasswordFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        signupPasswordFld.setText("Password");
+        signupPasswordFld.setForeground(Color.GRAY);
+
+        signupConpasswordFld = new JPasswordField(15);
+        signupConpasswordFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        signupConpasswordFld.setText(" Confirm Password");
+        signupConpasswordFld.setForeground(Color.GRAY);
+
+
+        // Signup button - log-in the user after signup
+        RoundedButton signupButton = new RoundedButton("SIGNUP");
+        signupButton.setBackground(Color.WHITE); // White background
+        signupButton.setForeground(new Color(69, 150, 209)); // Blue text
+
+        //Action for SIGNUP button
+        signupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleSignup();
             }
-    
-            // Close the resources
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    
-        return isSuccess;
-    }
+        });
 
-     private static boolean isUsernameAvailable(String username) {
-        boolean isAvailable = true;
-        try {
-            // Create a JDBC connection
-            Connection connection = DatabaseHelper.connect();
+        // Back Button (go back to LoginFrame)
+        RoundedButton backButton = new RoundedButton("BACK");
+        backButton.setBackground(Color.WHITE); // White background
+        backButton.setForeground(new Color(69, 150, 209)); // Blue text
 
-            // Create a prepared statement to check if the username exists in the table
-            String query = "SELECT * FROM users WHERE USERNAME = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query); //Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "connection" 
-            //is null
-            preparedStatement.setString(1, username);
-
-            // Execute the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // If a row is returned, the username already exists
-            if (resultSet.next()) {
-                isAvailable = false;
+         //Action for BACK button
+         backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LoginFrame loginFrame = new LoginFrame();
+                loginFrame.setVisible(true);
             }
+        });
 
-            // Close the resources
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        // Layout constraints
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+
+        gbc.gridy = 0;
+        signupPanel.add(titleLabel, gbc);
+
+        gbc.gridy = 1;
+        signupPanel.add(signupUsernameFld, gbc);
+
+        gbc.gridy = 2;
+        signupPanel.add(signupPasswordFld, gbc);
+
+        gbc.gridy = 3;
+        signupPanel.add(signupConpasswordFld,gbc);
+
+        gbc.gridy = 4;
+        signupPanel.add(signupButton, gbc);
+
+        gbc.gridy = 5;
+        signupPanel.add(backButton, gbc);
+
+        // CHANGE NAME
+        add(signupPanel);  
+
+        // Center frame on screen
+        setLocationRelativeTo(null);
+
+     }
+
+    private void handleSignup() {
+        String username = signupUsernameFld.getText().trim();
+        String password = new String(signupPasswordFld.getPassword());
+        String confirmPassword = new String(signupConpasswordFld.getPassword());
+
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Perform signup logic here
+            if (AuthService.isUsernameAvailable(username)) {
+                // Store the user's information in the database
+                if (AuthService.storeUserInDatabase(username, password, 2)) {
+                    JOptionPane.showMessageDialog(this, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error while signing up. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    
-        return isAvailable;
     }
 
 }

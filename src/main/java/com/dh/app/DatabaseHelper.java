@@ -1,5 +1,4 @@
 package com.dh.app;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +7,6 @@ import java.util.Properties;
 
 
 public class DatabaseHelper {
-    private static final String CONFIG_FILE = "src/main/resources/dbconfig.properties";
 
     private static String url;
     private static String user;

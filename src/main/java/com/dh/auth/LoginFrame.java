@@ -2,18 +2,10 @@ package com.dh.auth;
 // RoundedButton
 import com.dh.components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
-// connect()
-import com.dh.app.DatabaseHelper; 
 // Change these to be more specific
 import javax.swing.*;
 import java.awt.*;
-//JBCrypt for password hashing/salting
-import org.mindrot.jbcrypt.BCrypt;
 // Fine
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -37,7 +29,7 @@ public class LoginFrame extends JFrame {
 
         // === LEFT PANEL ===
         JPanel leftPanel = new JPanel(new GridBagLayout());
-        leftPanel.setBackground(new Color(34, 153, 84)); // Green background
+        leftPanel.setBackground(new Color(69, 150, 209)); // Green background
 
         JLabel titleLabel = new JLabel("Login");
         titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
@@ -45,7 +37,7 @@ public class LoginFrame extends JFrame {
 
         loginUsernameFld = new JTextField(15);
         loginUsernameFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        loginUsernameFld.setText("Email");
+        loginUsernameFld.setText("Username");
         loginUsernameFld.setForeground(Color.GRAY);
 
         loginPasswordFld = new JPasswordField(15);
@@ -60,7 +52,7 @@ public class LoginFrame extends JFrame {
         // RoundedButton object used here
         RoundedButton loginButton = new RoundedButton("LOGIN");
         loginButton.setBackground(Color.WHITE); // White background
-        loginButton.setForeground(new Color(34, 153, 84)); // Green text
+        loginButton.setForeground(new Color(69, 150, 209)); // Green text
 
         //Action for LOGIN button
         loginButton.addActionListener(new ActionListener() {
@@ -96,18 +88,32 @@ public class LoginFrame extends JFrame {
 
         JLabel welcomeLabel = new JLabel("Hello, Friend!");
         welcomeLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
-        welcomeLabel.setForeground(new Color(34, 153, 84)); // Green text
+        welcomeLabel.setForeground(new Color(69, 150, 209)); // Green text
 
         JLabel messageLabel = new JLabel("Enter your personal details");
-        messageLabel.setForeground(new Color(34, 153, 84)); // Green text
+        messageLabel.setForeground(new Color(69, 150, 209)); // Green text
 
         JLabel messageLabel2 = new JLabel("and start your journey with us");
-        messageLabel2.setForeground(new Color(34, 153, 84)); // Green text
+        messageLabel2.setForeground(new Color(69, 150, 209)); // Green text
 
         // RoundedButton Object used here
         RoundedButton signUpButton = new RoundedButton("SIGNUP");
-        signUpButton.setBackground(new Color(34, 153, 84)); // Green background
+        signUpButton.setBackground(new Color(69, 150, 209)); // Green background
         signUpButton.setForeground(Color.WHITE); // White text
+
+        //Action for LOGIN button
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 // Close the current LoginFrame instance
+                dispose();  // This will work (instead of LoginFrame.dispose) b/c it is an instance method
+
+                // Create a new instance of SignupFrame and make it visible
+                SignupFrame signupFrame = new SignupFrame();
+                signupFrame.setVisible(true);
+            }
+        });
+
 
         // Layout constraints for right panel
         gbc.gridy = 0;
@@ -125,6 +131,9 @@ public class LoginFrame extends JFrame {
         // Add panels to frame
         add(leftPanel);
         add(rightPanel);
+
+        // Center frame on screen
+        setLocationRelativeTo(null);
     }
 
     //LOGIN Method
@@ -180,7 +189,7 @@ public class LoginFrame extends JFrame {
 
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else  if  (verifyPassword(username, password)) {
+        } else  if  (AuthService.verifyPassword(username, password)) {
             // Perform login logic here
             JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             //Move to the manageAccount pane
@@ -202,35 +211,7 @@ public class LoginFrame extends JFrame {
         JOptionPane.showMessageDialog(this, "Welcome, User: " + UID);
     }
 
-private static boolean verifyPassword(String username, String password) {
-        try {
-            // Create a JDBC connection
-            Connection connection = DatabaseHelper.connect();
-    
-            // Retrieve the hashed password from the database
-            String query = "SELECT PASSWORD FROM users WHERE USERNAME = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-    
-            // Execute the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-    
-            if (resultSet.next()) {
-                String hashedPassword = resultSet.getString("PASSWORD");
-                // Verify the hashed password using BCrypt's checkpw method
-                return BCrypt.checkpw(password, hashedPassword);
-            }
-    
-            // Close the resources
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    
-        return false;
-    }
+
 
     public static void main(String[] args) {
         try {
