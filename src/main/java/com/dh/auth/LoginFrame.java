@@ -36,7 +36,7 @@ public class LoginFrame extends JFrame {
 
         // === LEFT PANEL ===
         JPanel leftPanel = new JPanel(new GridBagLayout());
-        leftPanel.setBackground(new Color(69, 150, 209)); // Green background
+        leftPanel.setBackground(new Color(69, 150, 209)); // Blue background
 
         JLabel titleLabel = new JLabel("Login");
         titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
@@ -222,7 +222,7 @@ public class LoginFrame extends JFrame {
                     new LibrarianFrame().setVisible(true);
                 } else {
                     // Open UserFrame, passing the UID to access user data
-                    new UserFrame(UID).setVisible(true);
+                    new UserFrame(UID, username).setVisible(true);
                 }
 
                 JOptionPane.showMessageDialog(this, "Login successful!" + UID, "Success", JOptionPane.INFORMATION_MESSAGE);

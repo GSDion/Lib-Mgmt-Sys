@@ -6,9 +6,15 @@ import java.awt.event.ActionEvent;
 
 public class LibrarianFrame extends JFrame {
 
+  
+        
+
     // Constructor
+    //rgb(69, 150, 209)
     public LibrarianFrame() {
+        
         initComponents();
+        header1.setWelcomeMessage("Welcome Admin"); // Set welcome message
         // menu1.setEvent(new MenuEvent() {
         //     @Override
         //     public void selected(int index, int subIndex) {
@@ -35,7 +41,7 @@ public class LibrarianFrame extends JFrame {
         jPanel1 = new javax.swing.JPanel();
         scrollPaneWin111 = new com.dh.components.scroll.win11.ScrollPaneWin11();
         menu1 = new com.dh.components.menu.Menu();
-        header1 = new com.dh.components.Header();
+        header1 = new com.dh.components.Header(this);
         body = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
