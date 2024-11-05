@@ -27,14 +27,14 @@ public class LibrarianFrame extends JFrame {
         // });
     }
    
-    private void showForm(Component com) {
-        body.removeAll();
-        body.add(com);
-        body.repaint();
-        body.revalidate();
-    }
+    // private void showForm(Component com) {
+    //     body.removeAll();
+    //     body.add(com);
+    //     body.repaint();
+    //     body.revalidate();
+    // }
 
-    @SuppressWarnings("unchecked")
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

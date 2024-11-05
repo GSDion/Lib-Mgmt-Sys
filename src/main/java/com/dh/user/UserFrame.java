@@ -1,8 +1,6 @@
 package com.dh.user;
 import javax.swing.*;
 
-import com.dh.components.Header;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
