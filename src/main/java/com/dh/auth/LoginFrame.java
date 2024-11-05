@@ -1,13 +1,20 @@
 package com.dh.auth;
+import com.dh.app.DatabaseHelper;
 // RoundedButton
 import com.dh.components.RoundedButton;
-import com.formdev.flatlaf.FlatLightLaf;
 // Change these to be more specific
 import javax.swing.*;
 import java.awt.*;
 // Fine
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+// Frames
+import com.dh.librarian.LibrarianFrame;
+import com.dh.user.UserFrame;
 
 public class LoginFrame extends JFrame {
     // private JFrame frame;  // Store the frame reference
@@ -185,41 +192,48 @@ public class LoginFrame extends JFrame {
 
     private void handleLogin() {
     String username = loginUsernameFld.getText().trim();
-        String password = new String(loginPasswordFld.getPassword());
+    String password = new String(loginPasswordFld.getPassword());
 
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else  if  (AuthService.verifyPassword(username, password)) {
-            // Perform login logic here
-            JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            //Move to the manageAccount pane
-        } else {
-            JOptionPane.showMessageDialog(null, "Invalid username or password.", "Error", JOptionPane.ERROR_MESSAGE);
-
-        }
-                        
-    }
-    
-
-    
-    // Placeholder methods for librarian and user frames
-    private void librarian_frame() {
-        JOptionPane.showMessageDialog(this, "Welcome, Librarian!");
-    }
-
-    private void user_frame(String UID) {
-        JOptionPane.showMessageDialog(this, "Welcome, User: " + UID);
-    }
-
-
-
-    public static void main(String[] args) {
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else if (AuthService.verifyPassword(username, password)) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            // Create a JDBC connection
+            Connection connection = DatabaseHelper.connect();
+            String query = "SELECT USER_TYPE, UID FROM users WHERE USERNAME = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
 
-        java.awt.EventQueue.invokeLater(() -> new LoginFrame().setVisible(true));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String userType = resultSet.getString("USER_TYPE");
+                String UID = resultSet.getString("UID");
+
+                // Close the resources
+                resultSet.close();
+                preparedStatement.close();
+                connection.close();
+
+                // Direct the user to the appropriate frame based on userType (1 for admin, 2 for user)
+                dispose(); // Close the current login frame
+                if ("1".equals(userType)) {
+                    // Open LibrarianFrame
+                    new LibrarianFrame().setVisible(true);
+                } else {
+                    // Open UserFrame, passing the UID to access user data
+                    new UserFrame(UID).setVisible(true);
+                }
+
+                JOptionPane.showMessageDialog(this, "Login successful!" + UID, "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred while logging in.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Invalid username or password.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+    
 }
