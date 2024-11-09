@@ -28,9 +28,13 @@ public class Menu extends JComponent {
     private MigLayout layout;
     private String[][] menuItems = new String[][]{
         {"Dashboard"},
+        // Icon: Person
         {"Manage Users", "Add User", "View Users"}, // Main menu index 1, "Add User" (subItem index 1), "View Users" (subItem index 2)
+         // Icon: Book
         {"Manage Books", "Add Book", "View Books", "Issue Book", "View Issued Books", "Return Book", "View Returned Books"}, // Main menu index 2
+         // Icon: Question Mark
         {"Settings"}, // Main menu index 2
+         // Icon: Cog
         {"Help"}, // Main menu index 4
 
         /*
@@ -61,7 +65,7 @@ public class Menu extends JComponent {
     }
 
     private Icon getIcon(int index) {
-        URL url = getClass().getResource("/raven/menu/" + index + ".png");
+        URL url = getClass().getResource("/com/dh/components/menu/" + index + ".png");
         if (url != null) {
             return new ImageIcon(url);
         } else {
