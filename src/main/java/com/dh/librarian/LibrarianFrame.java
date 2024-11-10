@@ -46,6 +46,7 @@ public class LibrarianFrame extends JFrame {
         header1 = new com.dh.components.Header(this);
         body = new javax.swing.JPanel();
 
+        setTitle("LMS Dashboard - Librarian");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         // Configure jPanel1 background and border

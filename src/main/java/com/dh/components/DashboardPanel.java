@@ -26,6 +26,7 @@ public class DashboardPanel extends JPanel {
     private void initComponents() {
         setLayout(new BorderLayout());
         setBackground(new Color(0, 0, 0, 0)); // Transparent
+        
 
         // ----TOP DASHBOARD PANEL----
         // Top panel with dashboard title and breadcrumb
@@ -54,10 +55,16 @@ public class DashboardPanel extends JPanel {
         topCardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         //total genres, authors, publishers, total price of books
-        totalGenresCard = new ModernCard("Total Genres", 0, new Color(255, 255, 128), new Color(255, 204, 128));
-        totalAuthorsCard = new ModernCard("Total Authors", 0, new Color(128, 255, 255), new Color(102, 178, 255));
-        totalPublishersCard = new ModernCard("Total Publishers", 0, new Color(255, 204, 128), new Color(255, 153, 51));
-        totalPriceCard = new ModernCard("Total Price", 0, new Color(153, 255, 153), new Color(102, 204, 102));
+        // totalGenresCard = new ModernCard("Total Genres", 0, new Color(255, 255, 128), new Color(255, 204, 128));
+        // totalAuthorsCard = new ModernCard("Total Authors", 0, new Color(128, 255, 255), new Color(102, 178, 255));
+        // totalPublishersCard = new ModernCard("Total Publishers", 0, new Color(255, 204, 128), new Color(255, 153, 51));
+        // totalPriceCard = new ModernCard("Total Price", 0, new Color(153, 255, 153), new Color(102, 204, 102));
+
+        totalGenresCard = new ModernCard("Total Genres", 0, new Color(33, 150, 245));//rgb(33, 150, 245)
+        totalAuthorsCard = new ModernCard("Total Authors", 0, new Color(76, 176, 81)); //rgb(76, 176, 81)
+        totalPublishersCard = new ModernCard("Total Publishers", 0, new Color(0, 150, 136)); //rgb(0, 150, 136)
+        totalPriceCard = new ModernCard("Total Price", 0, new Color(61, 89, 149));//rgb(61, 89, 149)
+        //rgb(113, 95, 235)
 
         topCardPanel.add(totalGenresCard);
         topCardPanel.add(totalAuthorsCard);
@@ -77,9 +84,22 @@ public class DashboardPanel extends JPanel {
         centerPanel.setOpaque(false); // Transparent background
         centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel imageLabel = new JLabel("Image Placeholder", SwingConstants.CENTER);
-        imageLabel.setOpaque(true);
-        imageLabel.setBackground(new Color(230, 230, 250));
+        // JLabel imageLabel = new JLabel("Image Placeholder", SwingConstants.CENTER);
+        // imageLabel.setOpaque(true);
+        // imageLabel.setBackground(new Color(230, 230, 250));
+
+        // Load the image from a file or resource
+        ImageIcon icon = new ImageIcon(getClass().getResource("/com/dh/pictures/ColorfulStackofBooks.png"));
+
+        //C:com\dh\pictures
+
+        // Optionally scale the image to fit the desired size
+        Image scaledImage = icon.getImage().getScaledInstance(300, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Create the JLabel with the scaled icon
+        JLabel imageLabel = new JLabel(scaledIcon, SwingConstants.CENTER);
+
         imageLabel.setPreferredSize(new Dimension(400, 300));
         centerPanel.add(imageLabel, BorderLayout.WEST);
 
@@ -91,10 +111,17 @@ public class DashboardPanel extends JPanel {
         bottomRightCardPanel.setPreferredSize(new Dimension(400, 200));
 
         //Bottom Card Panel: total books, total users, total issued, total reserved
-        totalBooksCard = new ModernCard("Total Books", 0, new Color(255, 128, 255), new Color(255, 153, 255));
-        totalUsersCard = new ModernCard("Total Users", 0, new Color(192, 192, 192), new Color(160, 160, 160));
-        totalIssuedCard= new ModernCard("Total Issued Books", 0, new Color(255, 182, 193), new Color(255, 160, 180));
-        totalReservedCard = new ModernCard("Total Reserved Books", 0, new Color(173, 216, 230), new Color(135, 206, 235));
+        // totalBooksCard = new ModernCard("Total Books", 0, new Color(255, 128, 255), new Color(255, 153, 255));
+        // totalUsersCard = new ModernCard("Total Users", 0, new Color(192, 192, 192), new Color(160, 160, 160));
+        // totalIssuedCard= new ModernCard("Total Issued Books", 0, new Color(255, 182, 193), new Color(255, 160, 180));
+        // totalReservedCard = new ModernCard("Total Reserved Books", 0, new Color(173, 216, 230), new Color(135, 206, 235));
+
+        totalBooksCard = new ModernCard("Total Books", 0, new Color(41, 192, 243));//rgb(41, 192, 243)
+        totalUsersCard = new ModernCard("Total Users", 0, new Color(96, 125, 143)); //rgb(96, 125, 143)
+        totalIssuedCard= new ModernCard("Total Issued Books", 0, new Color(247, 123, 3)); //rgb(247, 123, 3)
+        totalReservedCard = new ModernCard("Total Reserved Books", 0, new Color(254, 193, 6)); //rgb(254, 193, 6)
+
+
 
         bottomRightCardPanel.add(totalBooksCard);
         bottomRightCardPanel.add(totalUsersCard);

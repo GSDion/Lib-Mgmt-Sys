@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-
+import java.awt.GradientPaint;
 public class Menu extends JComponent {
 
     public MenuEvent getEvent() {
@@ -138,13 +138,36 @@ public class Menu extends JComponent {
         }
     }
 
+    // @Override
+    // protected void paintComponent(Graphics grphcs) {
+    //     Graphics2D g2 = (Graphics2D) grphcs.create();
+    //     // g2.setColor(new Color(241, 196, 15)); //lighter
+
+    //     g2.setPaint(new GradientPaint(0, 0, new Color(44, 107, 153), 0, getHeight(), new Color(69, 150, 209)));
+    //     //rgb(241, 196, 15), original: 69, 150, 209
+    //     g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
+    //     super.paintComponent(grphcs);
+    // }
+
     @Override
-    protected void paintComponent(Graphics grphcs) {
-        Graphics2D g2 = (Graphics2D) grphcs.create();
-        g2.setColor(new Color(69, 150, 209)); //lighter
-        g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
-        super.paintComponent(grphcs);
-    }
+protected void paintComponent(Graphics grphcs) {
+    Graphics2D g2 = (Graphics2D) grphcs.create();
+
+    // Start a multi-stop gradient for a richer look
+    GradientPaint gradient = new GradientPaint(
+    0, 0, new Color(56, 128, 181),      
+    //rgb(56, 128, 181)       // Start color at top-left
+    getWidth(), getHeight(), new Color(69, 150, 209)  // End color at bottom-right
+);
+
+    g2.setPaint(gradient);
+    g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
+
+    // Clean up
+    g2.dispose();
+    super.paintComponent(grphcs);
+}
+
 
     private void handleMenuAction(int menuIndex, int subMenuIndex) {
         // Handle specific actions based on the menu and submenu indexes
