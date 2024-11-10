@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,7 +52,17 @@ public class Header extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(Color.WHITE);
-        // jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/component/logo.png"))); // NOI18N
+        
+        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/dh/pictures/local_library_icon_72px.png"))); // NOI18N
+        //42 x 30 
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/com/dh/pictures/local_library_icon_72px.png"));
+        Image originalImage = originalIcon.getImage(); 
+        // Resize the image
+        int width = 30; 
+        int height = 30; 
+        Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+        jLabel1.setIcon(new ImageIcon(resizedImage));
         jLabel1.setText("Library Management System");
 
         //Welcome Message (Display admin for all userType: 1, else username for userType: 2)

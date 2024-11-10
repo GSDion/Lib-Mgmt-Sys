@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
@@ -67,12 +68,15 @@ public class Menu extends JComponent {
     private Icon getIcon(int index) {
         URL url = getClass().getResource("/com/dh/components/menu/" + index + ".png");
         if (url != null) {
-            return new ImageIcon(url);
+            ImageIcon originalIcon = new ImageIcon(url);
+            // Resize to 18x18
+            Image scaledImage = originalIcon.getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH); 
+            return new ImageIcon(scaledImage);
         } else {
             return null;
         }
     }
-
+    
     private void addMenu(String menuName, int index) {
         int length = menuItems[index].length;
         MenuItem item = new MenuItem(menuName, index, length > 1);
@@ -228,6 +232,8 @@ protected void paintComponent(Graphics grphcs) {
                 break;
         }
     }
+
+    
     
 
 }
