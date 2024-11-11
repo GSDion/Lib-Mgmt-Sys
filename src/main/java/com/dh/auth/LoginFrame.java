@@ -191,49 +191,49 @@ public class LoginFrame extends JFrame {
     // }
 
     private void handleLogin() {
-    String username = loginUsernameFld.getText().trim();
-    String password = new String(loginPasswordFld.getPassword());
+        String username = loginUsernameFld.getText().trim();
+        String password = new String(loginPasswordFld.getPassword());
 
-    if (username.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
-    } else if (AuthService.verifyPassword(username, password)) {
-        try {
-            // Create a JDBC connection
-            Connection connection = DatabaseHelper.connect();
-            String query = "SELECT USER_TYPE, UID FROM users WHERE USERNAME = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (AuthService.verifyPassword(username, password)) {
+            try {
+                // Create a JDBC connection
+                Connection connection = DatabaseHelper.connect();
+                String query = "SELECT USER_TYPE, UID FROM users WHERE USERNAME = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, username);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                String userType = resultSet.getString("USER_TYPE");
-                String UID = resultSet.getString("UID");
+                if (resultSet.next()) {
+                    String userType = resultSet.getString("USER_TYPE");
+                    String UID = resultSet.getString("UID");
 
-                // Close the resources
-                resultSet.close();
-                preparedStatement.close();
-                connection.close();
+                    // Close the resources
+                    resultSet.close();
+                    preparedStatement.close();
+                    connection.close();
 
-                // Direct the user to the appropriate frame based on userType (1 for admin, 2 for user)
-                dispose(); // Close the current login frame
-                if ("1".equals(userType)) {
-                    // Open LibrarianFrame
-                    new LibrarianFrame().setVisible(true);
-                } else {
-                    // Open UserFrame, passing the UID to access user data
-                    new UserFrame(UID, username).setVisible(true);
+                    // Direct the user to the appropriate frame based on userType (1 for admin, 2 for user)
+                    dispose(); // Close the current login frame
+                    if ("1".equals(userType)) {
+                        // Open LibrarianFrame
+                        new LibrarianFrame().setVisible(true);
+                    } else {
+                        // Open UserFrame, passing the UID to access user data
+                        new UserFrame(UID, username).setVisible(true);
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Login successful!" + UID + username, "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
-
-                JOptionPane.showMessageDialog(this, "Login successful!" + UID, "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "An error occurred while logging in.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "An error occurred while logging in.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "Invalid username or password.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
     
 }

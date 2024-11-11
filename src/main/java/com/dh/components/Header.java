@@ -36,6 +36,14 @@ public class Header extends javax.swing.JPanel {
 
     @Override
     protected void paintComponent(Graphics grphcs) {
+        super.paintComponent(grphcs);
+        System.out.println("Painting Header Component");
+
+    if (welcomeLabel != null) {
+        System.out.println("Welcome message: " + welcomeLabel.getText());
+    } else {
+        System.out.println("WelcomeLabel is null");
+    }
         Graphics2D g2 = (Graphics2D) grphcs.create();
         //darker, then lighter rgb(69, 150, 209)
         g2.setPaint(new GradientPaint(0, 0, new Color(44, 107, 153), 0, getHeight(), new Color(69, 150, 209)));
@@ -52,7 +60,7 @@ public class Header extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(Color.WHITE);
-        
+
         //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/dh/pictures/local_library_icon_72px.png"))); // NOI18N
         //42 x 30 
         ImageIcon originalIcon = new ImageIcon(getClass().getResource("/com/dh/pictures/local_library_icon_72px.png"));
@@ -69,6 +77,7 @@ public class Header extends javax.swing.JPanel {
         welcomeLabel = new JLabel("Welcome"); // Default welcome message
         welcomeLabel.setFont(new java.awt.Font("sansserif", 1, 18));
         welcomeLabel.setForeground(Color.WHITE);
+        welcomeLabel.setVisible(true);
 
         //Log out button
         MenuItem logoutButton = new MenuItem("Logout", 0, false);
@@ -102,12 +111,13 @@ public class Header extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(100, 100, 100) // Adjust the gap for centering the welcome label
+                .addGap(100, 100, 100) 
                 .addComponent(welcomeLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50) // Adjust gap between the welcome label and the logout button
+                .addGap(50, 50, 50) 
                 .addComponent(logoutButton)
                 .addContainerGap())
         );
+       
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -121,7 +131,10 @@ public class Header extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setWelcomeMessage(String message) {
+        System.out.println("Welcome Message: " + message);  // Debugging line
         welcomeLabel.setText(message);
+        this.revalidate();
+        this.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

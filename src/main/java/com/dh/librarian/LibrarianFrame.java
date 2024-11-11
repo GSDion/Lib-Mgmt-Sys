@@ -1,8 +1,6 @@
 package com.dh.librarian;
 import javax.swing.*;
 
-import com.dh.components.DashboardPanel;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -42,7 +40,7 @@ public class LibrarianFrame extends JFrame {
     private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
         scrollPaneWin111 = new com.dh.components.scroll.win11.ScrollPaneWin11();
-        menu1 = new com.dh.components.menu.Menu();
+        menu1 = new com.dh.components.menu.Menu(1);
         header1 = new com.dh.components.Header(this);
         body = new javax.swing.JPanel();
 
@@ -62,7 +60,7 @@ public class LibrarianFrame extends JFrame {
         body.setLayout(new java.awt.BorderLayout());
 
         // Create and add the dashboardPanel (or any center component) to the body panel
-        DashboardPanel dashboardPanel = new DashboardPanel(); // Ensure this is properly instantiated
+        LibrarianDashboardPanel dashboardPanel = new LibrarianDashboardPanel(); // Ensure this is properly instantiated
         body.add(dashboardPanel, java.awt.BorderLayout.CENTER);
 
         // Set up GroupLayout for jPanel1
@@ -135,6 +133,7 @@ public class LibrarianFrame extends JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Change names to be more descriptive of LibrarianFrame.java
     private javax.swing.JPanel body;
     private com.dh.components.Header header1;
     private javax.swing.JPanel jPanel1;

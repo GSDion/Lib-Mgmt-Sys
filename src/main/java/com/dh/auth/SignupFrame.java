@@ -31,7 +31,7 @@ public class SignupFrame extends JFrame {
         JPanel signupPanel = new JPanel(new GridBagLayout());
         signupPanel.setBackground(new Color(69, 150, 209)); // Blue background
 
-        JLabel titleLabel = new JLabel("Login");
+        JLabel titleLabel = new JLabel("Signup");
         titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE); // White text
 

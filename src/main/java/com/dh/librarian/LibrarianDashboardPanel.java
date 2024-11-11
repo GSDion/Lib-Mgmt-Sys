@@ -1,25 +1,26 @@
-package com.dh.components;
+package com.dh.librarian;
 
 import javax.swing.*;
 
 import com.dh.app.DatabaseHelper;
+import com.dh.components.ModernCard;
 
 import java.awt.*;
 import java.sql.*;
 
-public class DashboardPanel extends JPanel {
+public class LibrarianDashboardPanel extends JPanel {
     //Top Card Panel: total genres, authors, publishers, total price of books, total staffs (admins)
     private ModernCard totalGenresCard;
     private ModernCard totalAuthorsCard;
     private ModernCard totalPublishersCard;
     private ModernCard totalPriceCard;
-    //Bottom Card Panel: total books, total users, total issued, total reserved
+    //Bottom Card Panel: total books, total users, total issued, total returned
     private ModernCard totalBooksCard;
     private ModernCard totalUsersCard;
     private ModernCard totalIssuedCard;
-    private ModernCard totalReservedCard;
+    private ModernCard totalReturnedCard;
 
-    public DashboardPanel() {
+    public LibrarianDashboardPanel() {
         initComponents();
     }
 
@@ -93,7 +94,7 @@ public class DashboardPanel extends JPanel {
 
         //C:com\dh\pictures
 
-        // Optionally scale the image to fit the desired size
+        // Scale the image to fit the desired size
         Image scaledImage = icon.getImage().getScaledInstance(300, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
@@ -114,19 +115,19 @@ public class DashboardPanel extends JPanel {
         // totalBooksCard = new ModernCard("Total Books", 0, new Color(255, 128, 255), new Color(255, 153, 255));
         // totalUsersCard = new ModernCard("Total Users", 0, new Color(192, 192, 192), new Color(160, 160, 160));
         // totalIssuedCard= new ModernCard("Total Issued Books", 0, new Color(255, 182, 193), new Color(255, 160, 180));
-        // totalReservedCard = new ModernCard("Total Reserved Books", 0, new Color(173, 216, 230), new Color(135, 206, 235));
+        // totalReturnedCard = new ModernCard("Total Reserved Books", 0, new Color(173, 216, 230), new Color(135, 206, 235));
 
         totalBooksCard = new ModernCard("Total Books", 0, new Color(41, 192, 243));//rgb(41, 192, 243)
         totalUsersCard = new ModernCard("Total Users", 0, new Color(96, 125, 143)); //rgb(96, 125, 143)
         totalIssuedCard= new ModernCard("Total Issued Books", 0, new Color(247, 123, 3)); //rgb(247, 123, 3)
-        totalReservedCard = new ModernCard("Total Reserved Books", 0, new Color(254, 193, 6)); //rgb(254, 193, 6)
+        totalReturnedCard = new ModernCard("Total Reserved Books", 0, new Color(254, 193, 6)); //rgb(254, 193, 6)
 
 
 
         bottomRightCardPanel.add(totalBooksCard);
         bottomRightCardPanel.add(totalUsersCard);
         bottomRightCardPanel.add(totalIssuedCard);
-        bottomRightCardPanel.add(totalReservedCard);
+        bottomRightCardPanel.add(totalReturnedCard);
 
         centerPanel.add(bottomRightCardPanel, BorderLayout.EAST);
         add(centerPanel, BorderLayout.SOUTH);
@@ -146,7 +147,7 @@ public class DashboardPanel extends JPanel {
             totalBooksCard.setCount(fetchCount(connection, "SELECT COUNT(*) FROM books"));
             totalUsersCard.setCount(fetchCount(connection, "SELECT COUNT(*) FROM users"));
             totalIssuedCard.setCount(fetchCount(connection, "SELECT COUNT(*) FROM issued_books"));
-            totalReservedCard.setCount(fetchCount(connection, "SELECT COUNT(*) FROM returned_books"));
+            totalReturnedCard.setCount(fetchCount(connection, "SELECT COUNT(*) FROM returned_books"));
 
         } catch (SQLException e) {
             e.printStackTrace();
