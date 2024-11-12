@@ -2,8 +2,6 @@ package com.dh.user;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class UserFrame extends JFrame {
     
@@ -15,7 +13,7 @@ public class UserFrame extends JFrame {
         header1 = new com.dh.components.Header(this);
         
         header1.setWelcomeMessage("Welcome " + username); // Set welcome message with username
-   
+        menu1 = new com.dh.components.menu.Menu(this, 2); // initiate this here (BEFORE initComponents), to pass the current JFrame component
         initComponents(UID);
     }
 
@@ -29,7 +27,7 @@ public class UserFrame extends JFrame {
     
         jPanel1 = new javax.swing.JPanel();
         scrollPaneWin111 = new com.dh.components.scroll.win11.ScrollPaneWin11();
-        menu1 = new com.dh.components.menu.Menu(2);
+        // menu1 = new com.dh.components.menu.Menu(2);
         header1 = new com.dh.components.Header(this);
         body = new javax.swing.JPanel();
 

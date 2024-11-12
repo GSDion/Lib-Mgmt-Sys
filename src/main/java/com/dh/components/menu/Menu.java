@@ -18,7 +18,11 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.dh.librarian.LibrarianFrame;
+import com.dh.librarian.ViewBooksFrame;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -28,6 +32,7 @@ import net.miginfocom.swing.MigLayout;
     //     super.paintComponent(grphcs);
     // }
 public class Menu extends JComponent {
+    private JFrame currentFrame;
     private MenuEvent event;
     private MigLayout layout;
     
@@ -49,7 +54,8 @@ public class Menu extends JComponent {
 
     private int userType; // 1 for Admin, 2 for User
 
-    public Menu(int userType) {
+    public Menu(JFrame currentFrame, int userType) {
+        this.currentFrame = currentFrame; // Set the current frame reference
         this.userType = userType; // Set the userType
         init();
     }
@@ -101,11 +107,11 @@ public class Menu extends JComponent {
                 } else {
                     // FIX
                     if (userType==1) {
-                        handleMenuAction(index, 0);
+                        handleLibrarianMenuAction(index, 0);
                     } else {
                         handleUserMenuAction(index, 0);
                     }
-                    //handleMenuAction(index, 0);
+                    //handleLibrarianMenuAction(index, 0);
                 }
             }
         });
@@ -126,9 +132,9 @@ public class Menu extends JComponent {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     // FIX
-                    // handleMenuAction(index, subIndex);
+                    // handleLibrarianMenuAction(index, subIndex);
                     if (userType==1) {
-                        handleMenuAction(index, subIndex);
+                        handleLibrarianMenuAction(index, subIndex);
                     } else {
                         handleUserMenuAction(index, subIndex);
                     }
@@ -164,11 +170,12 @@ public class Menu extends JComponent {
     }
 
     //admin menu actions
-    private void handleMenuAction(int menuIndex, int subMenuIndex) {
+    private void handleLibrarianMenuAction(int menuIndex, int subMenuIndex) {
         // Handle specific actions based on the menu and submenu indexes
         switch (menuIndex) {
             case 0: // Dashboard
                 // Specific action for Dashboard
+                transitionToFrame(new LibrarianFrame());
                 System.out.println("Dashboard clicked");
                 break;
             case 1: // Manage Users
@@ -191,6 +198,7 @@ public class Menu extends JComponent {
                         break;
                     case 2: // View Books
                         // Specific action for View Books
+                        transitionToFrame(new ViewBooksFrame());
                         System.out.println("View Books clicked");
                         break;
                     case 3: // Issue Book
@@ -260,4 +268,14 @@ public class Menu extends JComponent {
                 break;
         }
     }
+
+    private void transitionToFrame(JFrame newFrame) {
+        if (currentFrame != null) {
+            currentFrame.dispose(); // Dispose of the current frame
+        }
+    
+        newFrame.setVisible(true); // Make the new frame visible
+        newFrame.setLocationRelativeTo(null); // Center the new frame on the screen
+    }
+    
 }
