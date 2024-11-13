@@ -21,8 +21,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.dh.librarian.AddUserFrame;
+import com.dh.librarian.BookFrame;
+import com.dh.librarian.IssueBookFrame;
+import com.dh.librarian.IssuedBooksFrame;
 import com.dh.librarian.LibrarianFrame;
+import com.dh.librarian.ReturnBookFrame;
+import com.dh.librarian.ReturnedBooksFrame;
 import com.dh.librarian.ViewBooksFrame;
+import com.dh.librarian.ViewUsersFrame;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -174,7 +181,6 @@ public class Menu extends JComponent {
         // Handle specific actions based on the menu and submenu indexes
         switch (menuIndex) {
             case 0: // Dashboard
-                // Specific action for Dashboard
                 transitionToFrame(new LibrarianFrame());
                 System.out.println("Dashboard clicked");
                 break;
@@ -182,10 +188,12 @@ public class Menu extends JComponent {
                 switch (subMenuIndex) {
                     case 1: // Add User
                         // Specific action for Add User
+                        transitionToFrame(new AddUserFrame());
                         System.out.println("Add User clicked");
                         break;
                     case 2: // View Users
                         // Specific action for View Users
+                        transitionToFrame(new ViewUsersFrame());
                         System.out.println("View Users clicked");
                         break;
                 }
@@ -194,27 +202,29 @@ public class Menu extends JComponent {
                 switch (subMenuIndex) {
                     case 1: // Add Book
                         // Specific action for Add Book
+                        transitionToFrame(new BookFrame());
                         System.out.println("Add Book clicked");
                         break;
                     case 2: // View Books
-                        // Specific action for View Books
                         transitionToFrame(new ViewBooksFrame());
                         System.out.println("View Books clicked");
                         break;
                     case 3: // Issue Book
                         // Specific action for Issue Book
+                        transitionToFrame(new IssueBookFrame());
                         System.out.println("Issue Book clicked");
                         break;
                     case 4: // View Issued Books
-                        // Specific action for View Issued Books
+                        transitionToFrame(new IssuedBooksFrame());
                         System.out.println("View Issued Books clicked");
                         break;
                     case 5: // Return Book
                         // Specific action for Return Book
+                        transitionToFrame(new ReturnBookFrame());
                         System.out.println("Return Book clicked");
                         break;
                     case 6: // View Returned Books
-                        // Specific action for View Returned Books
+                        transitionToFrame(new ReturnedBooksFrame());
                         System.out.println("View Returned Books clicked");
                         break;
                 }

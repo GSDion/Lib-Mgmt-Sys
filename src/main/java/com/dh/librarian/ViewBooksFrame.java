@@ -1,6 +1,9 @@
 package com.dh.librarian;
 
 import javax.swing.*;
+
+import com.dh.app.DatabaseHelper;
+
 import java.awt.*;
 
 public class ViewBooksFrame extends JFrame {
@@ -39,11 +42,11 @@ public class ViewBooksFrame extends JFrame {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
     
-        JLabel titleLabel = new JLabel("Admin Dashboard - Books", SwingConstants.LEFT);
+        JLabel titleLabel = new JLabel("Admin Dashboard - View Books", SwingConstants.LEFT);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         titleLabel.setForeground(Color.DARK_GRAY);
     
-        JLabel breadcrumbLabel = new JLabel("Home > Books", SwingConstants.RIGHT);
+        JLabel breadcrumbLabel = new JLabel("Home > View Books", SwingConstants.RIGHT);
         breadcrumbLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         breadcrumbLabel.setForeground(Color.DARK_GRAY);
     
@@ -55,14 +58,24 @@ public class ViewBooksFrame extends JFrame {
         body.add(topPanel, BorderLayout.NORTH);
     
         // Configure table for viewing books (Sample Data)
-        String[] columnNames = {"ID", "Title", "Author", "Genre", "Publisher", "Year"};
-        Object[][] data = {
-            {"1", "Book A", "Author X", "Fiction", "Publisher Y", "2022"},
-            {"2", "Book B", "Author Z", "Non-Fiction", "Publisher X", "2023"}
-        };
+        // String[] columnNames = {"ID", "Title", "Author", "Genre", "Publisher", "Year"};
+        // Object[][] data = {
+        //     {"1", "Book A", "Author X", "Fiction", "Publisher Y", "2022"},
+        //     {"2", "Book B", "Author Z", "Non-Fiction", "Publisher X", "2023"}
+        // };
     
+        // booksTable = new JTable(data, columnNames);
+        // // booksTable.setFillsViewportHeight(true);
+        // tableScrollPane = new JScrollPane(booksTable);
+
+        // Table columns
+        String[] columnNames = {"bid", "book_isbn", "book_name", "book_publisher", "book_edition", "book_genre", "book_pages", "book_price", "book_author"};
+
+        // Fetch data from the database
+        Object[][] data = DatabaseHelper.retrieveTableData("books", columnNames);
+
+        // Create table with retrieved data
         booksTable = new JTable(data, columnNames);
-        // booksTable.setFillsViewportHeight(true);
         tableScrollPane = new JScrollPane(booksTable);
     
         // Add the table to the center of body
