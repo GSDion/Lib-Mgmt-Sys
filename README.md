@@ -32,14 +32,23 @@
 ## Sceenshots
 <!--Photos of App: Login, Signup, Librarian Frame, LibarianFrame, UserFrame, Add User, Manage Users, Add Book, Manage Books-->
 ### Login
+![alt text](src/main/java/com/dh/pictures/lms_login.png)
 ### Signup
+![alt text](src/main/java/com/dh/pictures/lms_signup.png)
 ### Librarian/Admin Frame
-#### Add User
-#### Manage Users
-#### Add Book
-#### Manage Books
+![alt text](src/main/java/com/dh/pictures/lms_admin_dashboard.png)
+#### View Books
+![alt text](src/main/java/com/dh/pictures/lms_admin_view_books.png)
+#### Add Books
+![alt text](src/main/java/com/dh/pictures/lms_admin_add_book.png)
+#### View Users
+![alt text](src/main/java/com/dh/pictures/lms_admin_view_users.png)
+#### Add Users
+![alt text](src/main/java/com/dh/pictures/lms_admin_add_user.png)
 ### User Frame
+![alt text](src/main/java/com/dh/pictures/lms_user_dashboard.png)
 #### View Issued Books
+<!-- ![alt text](src/main/java/com/dh/pictures/lms_user_view_issued_books.png) -->
 
 ## License
 <p>Distributed under the MIT License. See LICENSE.txt for more information.</p>
