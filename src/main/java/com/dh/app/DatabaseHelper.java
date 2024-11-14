@@ -105,6 +105,38 @@ public class DatabaseHelper {
             return false;
         }
     }
+
+    // Method to retrieve data from any table based on UID
+public static Object[][] retrieveTableDataByUID(String tableName, String[] columns, String UID) {
+    List<Object[]> data = new ArrayList<>();
+    String query = "SELECT " + String.join(", ", columns) + " FROM " + tableName + " WHERE UID = ?";
+
+    try (Connection conn = connect();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set the UID parameter, converting the string to an integer for the query
+        stmt.setInt(1, Integer.parseInt(UID));
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            int columnCount = columns.length;
+            while (rs.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    row[i] = rs.getObject(columns[i]);
+                }
+                data.add(row);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error retrieving data: " + e.getMessage());
+    } catch (NumberFormatException e) {
+        System.err.println("Invalid UID format: " + e.getMessage());
+    }
+
+    return data.toArray(new Object[0][0]);
+}
+
+
     
     
 }

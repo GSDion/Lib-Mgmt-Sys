@@ -32,6 +32,8 @@ import com.dh.librarian.ViewBooksFrame;
 import com.dh.librarian.ViewUsersFrame;
 import com.dh.user.UserFrame;
 import com.dh.user.ViewBooksUserFrame;
+import com.dh.user.ViewUserIssuedBooksFrame;
+import com.dh.user.ViewUserReturnedBooksFrame;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -265,11 +267,12 @@ public class Menu extends JComponent {
                         break;
                     case 2: // View Issued Books
                         // Specific action for View Issued Books
-                        //transitionToFrame(new ViewUserIssuedBooksFrame(UID, username, userType));
+                        transitionToFrame(new ViewUserIssuedBooksFrame(UID, username, userType));
                         System.out.println("View Issued Books clicked");
                         break;
                     case 3: // View Returned Books
                         // Specific action for View Returned Books
+                        transitionToFrame(new ViewUserReturnedBooksFrame(UID, username, userType));
                         System.out.println("View Returned Books clicked");
                         break;
                 }
