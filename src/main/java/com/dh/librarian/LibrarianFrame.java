@@ -10,7 +10,7 @@ public class LibrarianFrame extends JFrame {
     // Constructor
     //rgb(69, 150, 209)
     public LibrarianFrame() {
-        menu1 = new com.dh.components.menu.Menu(this,1);
+        menu1 = new com.dh.components.menu.Menu(this, "1",null,null); 
         initComponents();
         header1.setWelcomeMessage("Welcome Admin"); // Set welcome message
        

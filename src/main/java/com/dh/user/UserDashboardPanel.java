@@ -115,7 +115,7 @@ public class UserDashboardPanel extends JPanel{
             }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1);
+                return rs.getInt(1); // Always return integer count
             }
         }
         return 0;

@@ -30,6 +30,8 @@ import com.dh.librarian.ReturnBookFrame;
 import com.dh.librarian.ReturnedBooksFrame;
 import com.dh.librarian.ViewBooksFrame;
 import com.dh.librarian.ViewUsersFrame;
+import com.dh.user.UserFrame;
+import com.dh.user.ViewBooksUserFrame;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -59,11 +61,16 @@ public class Menu extends JComponent {
         {"Help"}
     };
 
-    private int userType; // 1 for Admin, 2 for User
+    private String userType; // 1 for Admin, 2 for User
+    private String UID;
+    private String username;
 
-    public Menu(JFrame currentFrame, int userType) {
+    // UID for particular user
+    public Menu(JFrame currentFrame, String userType, String username, String UID) {
         this.currentFrame = currentFrame; // Set the current frame reference
-        this.userType = userType; // Set the userType
+        this.userType = userType; 
+        this.UID = (userType == "2") ? UID : null; // Only set UID and username if userType is 2
+        this.username = (userType == "2") ? username : null; // Only set if userType is 2
         init();
     }
 
@@ -74,7 +81,7 @@ public class Menu extends JComponent {
         
         // Use the appropriate menu items based on the user type
         //
-        String[][] menuItems = (userType == 1) ? adminMenuItems : userMenuItems;
+        String[][] menuItems = (userType == "1") ? adminMenuItems : userMenuItems;
         
         //  Init MenuItem based on the selected menu
         for (int i = 0; i < menuItems.length; i++) {
@@ -113,7 +120,7 @@ public class Menu extends JComponent {
                     }
                 } else {
                     // FIX
-                    if (userType==1) {
+                    if (userType=="1") {
                         handleLibrarianMenuAction(index, 0);
                     } else {
                         handleUserMenuAction(index, 0);
@@ -138,9 +145,7 @@ public class Menu extends JComponent {
             subItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    // FIX
-                    // handleLibrarianMenuAction(index, subIndex);
-                    if (userType==1) {
+                    if (userType=="1") {
                         handleLibrarianMenuAction(index, subIndex);
                     } else {
                         handleUserMenuAction(index, subIndex);
@@ -248,16 +253,19 @@ public class Menu extends JComponent {
         switch (menuIndex) {
             case 0: // Dashboard
                 // Specific action for Dashboard
+                transitionToFrame(new UserFrame(UID, username, userType));
                 System.out.println("Dashboard clicked");
                 break;
             case 1: // Manage Books
                 switch (subMenuIndex) {
                     case 1: // View Books
                         // Specific action for View Books
+                        transitionToFrame(new ViewBooksUserFrame(UID, username, userType));
                         System.out.println("View Books clicked");
                         break;
                     case 2: // View Issued Books
                         // Specific action for View Issued Books
+                        //transitionToFrame(new ViewUserIssuedBooksFrame(UID, username, userType));
                         System.out.println("View Issued Books clicked");
                         break;
                     case 3: // View Returned Books

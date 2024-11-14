@@ -16,7 +16,7 @@ public class BookFrame extends JFrame {
     private JTextField isbnField, nameField, publisherField, editionField, genreField, pagesField, priceField, authorField;
 
     public BookFrame() {
-        menu = new com.dh.components.menu.Menu(this, 1); // initiate this here (BEFORE initComponents)
+        menu = new com.dh.components.menu.Menu(this, "1",null,null);  // initiate this here (BEFORE initComponents)
         initComponents();
         header.setWelcomeMessage("Welcome Admin"); // Set a personalized welcome message
     }

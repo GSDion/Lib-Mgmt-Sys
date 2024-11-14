@@ -16,7 +16,7 @@ public class ReturnedBooksFrame extends JFrame {
     private JScrollPane tableScrollPane;
 
     public ReturnedBooksFrame() {
-        menu = new com.dh.components.menu.Menu(this, 1); // initiate this here (BEFORE initComponents), to pass the current JFrame component
+        menu = new com.dh.components.menu.Menu(this, "1",null,null); // initiate this here (BEFORE initComponents), to pass the current JFrame component
         initComponents();
         header.setWelcomeMessage("Welcome Admin"); // Set a personalized welcome message
     }

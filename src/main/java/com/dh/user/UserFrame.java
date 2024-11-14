@@ -4,20 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UserFrame extends JFrame {
-    
+    // private String UID;
+    //  private String username;
    
    
 
-    public UserFrame(String UID, String username) {
+    public UserFrame(String UID, String username, String userType) {
         
         header1 = new com.dh.components.Header(this);
-        
-        header1.setWelcomeMessage("Welcome " + username); // Set welcome message with username
-        menu1 = new com.dh.components.menu.Menu(this, 2); // initiate this here (BEFORE initComponents), to pass the current JFrame component
-        initComponents(UID);
+        menu1 = new com.dh.components.menu.Menu(this, "2",username, UID); // initiate this here (BEFORE initComponents), to pass the current JFrame component
+        initComponents(UID, username);
     }
 
-    private void initComponents(String UID) {
+
+    private void initComponents(String UID, String username) {
         
         setTitle("LMS Dashboard - User");
         setSize(1200, 700);
@@ -27,11 +27,11 @@ public class UserFrame extends JFrame {
     
         jPanel1 = new javax.swing.JPanel();
         scrollPaneWin111 = new com.dh.components.scroll.win11.ScrollPaneWin11();
-        // menu1 = new com.dh.components.menu.Menu(2);
         header1 = new com.dh.components.Header(this);
+        header1.setWelcomeMessage("Welcome " + username); // Set welcome message with username HERE
         body = new javax.swing.JPanel();
 
-        setTitle("LMS Dashboard - Librarian");
+        setTitle("LMS Dashboard - User");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         // Configure jPanel1 background and border

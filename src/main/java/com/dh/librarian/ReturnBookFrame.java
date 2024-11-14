@@ -17,7 +17,7 @@ public class ReturnBookFrame extends JFrame {
     private JTextField bidField, uidField ,returnDateField, fineField;
 
     public ReturnBookFrame() {
-        menu = new com.dh.components.menu.Menu(this, 1); // initiate this here (BEFORE initComponents)
+        menu = new com.dh.components.menu.Menu(this, "1",null,null);  // initiate this here (BEFORE initComponents)
         initComponents();
         header.setWelcomeMessage("Welcome Admin"); // Set a personalized welcome message
     }

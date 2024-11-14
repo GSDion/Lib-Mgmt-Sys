@@ -222,7 +222,7 @@ public class LoginFrame extends JFrame {
                         new LibrarianFrame().setVisible(true);
                     } else {
                         // Open UserFrame, passing the UID to access user data
-                        new UserFrame(UID, username).setVisible(true);
+                        new UserFrame(UID, username, userType).setVisible(true);
                     }
 
                     JOptionPane.showMessageDialog(this, "Login successful!" + UID + username, "Success", JOptionPane.INFORMATION_MESSAGE);
