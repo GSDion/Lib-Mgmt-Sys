@@ -136,7 +136,8 @@ public static Object[][] retrieveTableDataByUID(String tableName, String[] colum
     return data.toArray(new Object[0][0]);
 }
 
+    // MODIFY ENTRY IN DATABSE (PLACE EDIT BUTTON ON TABLE, NEXT TO RESPECTIVE ENTRY)
 
-    
+    //DELETE ENTRY IN DATABASE (PLACE DELETE BUTTON ON TABLE, NEXT TO RESPECTIVE ENTRY)
     
 }
