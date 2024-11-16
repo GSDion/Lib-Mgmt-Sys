@@ -1,7 +1,8 @@
 # StackTrack - A Library Management System
-<!--Badges: License (MIT) Badge-->
-<p>StackTrack, a library managment system, is used to track and manage the users and books that circulate throughout a library.</p>
-<p>StackTrack can be used to manage and add users, and add, remove, administer books.</p>
+<!--Badges: License Badge-->
+<p>StackTrack is  a Library Management System designed to streamline the process of managing library users and books.</p>
+<p> It enables administrators/librarians to efficiently track and manage book circulation, user accounts, and overall library operations.</p>
+<p>In additon to operations catered towards adminsitrators/libarains, StackTrack includes the ability for library patrons to manage and view their account information.</p>
 
 
 ## Built With
@@ -32,23 +33,35 @@
 ## Sceenshots
 <!--Photos of App: Login, Signup, Librarian Frame, LibarianFrame, UserFrame, Add User, Manage Users, Add Book, Manage Books-->
 ### Login
-![alt text](src/main/java/com/dh/pictures/lms_login.png)
+![StackTrack - Login](src/main/java/com/dh/pictures/lms_login.png)
 ### Signup
-![alt text](src/main/java/com/dh/pictures/lms_signup.png)
+![StackTrack - Signup](src/main/java/com/dh/pictures/lms_signup.png)
 ### Librarian/Admin Frame
-![alt text](src/main/java/com/dh/pictures/lms_admin_dashboard.png)
+![StackTrack - Admin Dashboard](src/main/java/com/dh/pictures/lms_admin_dashboard.png)
 #### View Books
-![alt text](src/main/java/com/dh/pictures/lms_admin_view_books.png)
+![StackTrack - Admin Frame for Books](src/main/java/com/dh/pictures/lms_admin_view_books.png)
 #### Add Books
-![alt text](src/main/java/com/dh/pictures/lms_admin_add_book.png)
+![StackTrack - Admin Frame Adding Books](src/main/java/com/dh/pictures/lms_admin_add_book.png)
 #### View Users
-![alt text](src/main/java/com/dh/pictures/lms_admin_view_users.png)
+![StackTrack - Admin Frame for Viewing Users](src/main/java/com/dh/pictures/lms_admin_view_users.png)
 #### Add Users
-![alt text](src/main/java/com/dh/pictures/lms_admin_add_user.png)
+![StackTrack - Admin Frame for Adding Users](src/main/java/com/dh/pictures/lms_admin_add_user.png)
 ### User Frame
-![alt text](src/main/java/com/dh/pictures/lms_user_dashboard.png)
+![StackTrack - User Dashboard](src/main/java/com/dh/pictures/lms_user_dashboard.png)
 #### View Issued Books
-<!-- ![alt text](src/main/java/com/dh/pictures/lms_user_view_issued_books.png) -->
+![StackTrack - User Frame for Viewing Issued Books](src/main/java/com/dh/pictures/lms_user_view_issued_books.png)
 
-## License
-<p>Distributed under the MIT License. See LICENSE.txt for more information.</p>
+# Project Roadmap
+<p>What's Been Completed:</p>
+
+- Ability for Admin to add database entries for "books", "issued_books", "returned books", and "users"
+- Ability for Admin to view database entries for "books", "issued_books", "returned books" and "users"
+- Ability for User to view database entries for "books", "issued_books" (related to their UID), and "returned books" (related to their UID)
+ <p>Potential Add-ons:</p>
+
+- Ability for Admin to edit database entries for "books", "issued_books", "returned books", and "users"
+- Ability for Admin to delete database entries for "books", "issued_books", "returned books", and "users"
+- Ability for Admin and User to change color scheme of application
+
+# License
+<p>Distributed under the GNU GPLv3 License. See the "COPYING" file for more information.</p>
