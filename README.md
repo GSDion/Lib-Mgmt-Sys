@@ -2,7 +2,7 @@
 <!--Badges: License Badge-->
 <p>StackTrack is  a Library Management System designed to streamline the process of managing library users and books.</p>
 <p> It enables administrators/librarians to efficiently track and manage book circulation, user accounts, and overall library operations.</p>
-<p>In additon to operations catered towards adminsitrators/libarains, StackTrack includes the ability for library patrons to manage and view their account information.</p>
+<p>In additon to operations catered towards administrators/librarians, StackTrack includes the ability for library patrons to manage and view their account information.</p>
 
 
 ## Built With
